@@ -1,9 +1,9 @@
-const  { Model, INTEGER, VARCHAR, STRING } = require("sequelize");
+const { Model, INTEGER, VARCHAR, STRING } = require("sequelize");
 
 const sequelize = require("../db_config/db_config");
 
 
-class User extends Model {}
+class User extends Model{}
 
 User.init(
     {
@@ -24,6 +24,15 @@ User.init(
         timestamps: false
     }
 );
+
+User.checkAndSaveUser = async (user) => {
+    console.log('User request', user);
+    const data = await User.findByPk(user.id);
+    if (!data) {
+        // user does not exist, save it
+        await User.create(user);
+    }
+}
 
 
 module.exports = User;

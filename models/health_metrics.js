@@ -1,7 +1,7 @@
-const  { Model, INTEGER, BIGINT } = require("sequelize");
+const { Model, INTEGER, BIGINT } = require("sequelize");
 const User = require('./user');
 const sequelize = require("../db_config/db_config");
-class HealthMetric extends Model {}
+class HealthMetric extends Model { }
 
 HealthMetric.init(
     {
@@ -25,13 +25,13 @@ HealthMetric.init(
             type: INTEGER,
             field: "steps",
             unsigned: true,
-            defaultValue : 0
+            defaultValue: 0
         },
         calories: {
             type: INTEGER,
             field: "calories",
             unsigned: true,
-            defaultValue : 0
+            defaultValue: 0
         },
     },
     {
@@ -47,5 +47,9 @@ HealthMetric.belongsTo(User, {
     targetKey: "id",
     as: "healthData"
 });
+
+HealthMetric.saveUserMetricInBulk = async (metrics) => {
+    await HealthMetric.bulkCreate(metrics, { returning: true })
+}
 
 module.exports = HealthMetric;
