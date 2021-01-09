@@ -24,4 +24,4 @@
        
  ## CRON JOB
      - command -> * * * * * cd ~/Desktop/shell_script/ && python3 script.py
-     - script: [here]
+     - script: [a link](https://github.com/BirlaPrasoon/visithealth/blob/main/shell_script/script.py)
