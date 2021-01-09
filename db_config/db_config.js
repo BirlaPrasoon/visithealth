@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+const { Sequelize } = require("sequelize");
 
 const mysqlHost = "localhost";
 const mysqlDatabase =  "visit";
@@ -13,4 +13,4 @@ const sequelize = new Sequelize({
     dialect: "mysql"
 });
 
-export default sequelize;
+module.exports = sequelize;
