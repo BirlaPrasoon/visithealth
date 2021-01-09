@@ -26,7 +26,6 @@ User.init(
 );
 
 User.checkAndSaveUser = async (user) => {
-    console.log('User request', user);
     const data = await User.findByPk(user.id);
     if (!data) {
         // user does not exist, save it

@@ -43,13 +43,19 @@ HealthMetric.init(
 );
 
 HealthMetric.belongsTo(User, {
-    foreignKey: "userID",
+    foreignKey: "user_id",
     targetKey: "id",
-    as: "healthData"
+    as: "user",
 });
 
 HealthMetric.saveUserMetricInBulk = async (metrics) => {
-    await HealthMetric.bulkCreate(metrics, { returning: true })
+   await HealthMetric.bulkCreate(metrics, { returning: true })
+}
+
+HealthMetric.findData = async () => {
+    const query = 'SELECT user.id as id, user.name as name, health_metrics.date, health_metrics.steps, health_metrics.calories from user inner join health_metrics on user.id = health_metrics.user_id';
+    const [data, metadata] = await sequelize.query(query);
+    return data;
 }
 
 module.exports = HealthMetric;

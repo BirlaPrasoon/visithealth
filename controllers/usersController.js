@@ -1,5 +1,4 @@
 let User = require("../models/user")
-
 var express = require('express');
 var router = express.Router();
 const CSV = require('csv-string');
@@ -65,7 +64,6 @@ const processMetrics = async (csvRecords) => {
   let metrics = []
   for (let i = 1; i < csvRecords.length; i++) {
     let rec = csvRecords[i];
-    console.log(rec);
     let user = {};
     user.id = parseInt(rec[0]);
     user.name = rec[1];
@@ -78,24 +76,25 @@ const processMetrics = async (csvRecords) => {
     await User.checkAndSaveUser(user);
     metrics.push(metric);
   }
-  await HealthMetric.saveUserMetricInBulk(HealthMetric)
+  await HealthMetric.saveUserMetricInBulk(metrics)
+  const data = await HealthMetric.findAll();
 }
 
 router.get("/", async (req, res, next) => {
-    User.findAll()
-    .then(data => {
-      res.send({
-        status: 200,
-        data: data
-      })
-    })
-    .catch(err => {
-      console.log(err)
-      res.send({
-        status: 500,
-        message: 'Internal error occurred'
-      })
-    })
+   HealthMetric.findData()
+   .then(data => {
+     res.send({
+       status: 200,
+       data: data
+     })
+   }).catch(err => {
+     console.log(err)
+     res.send({
+       status: 500,
+       message: 'internal error occurred'
+     })
+   })
 })
+
 
 module.exports = router;
