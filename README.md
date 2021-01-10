@@ -23,5 +23,5 @@
        - Returns the Health Metric data
        
  ## CRON JOB
-     - command -> * * * * * cd ~/Desktop/shell_script/ && python3 script.py
+     - command -> 1 * * * * cd ~/Desktop/shell_script/ && python3 script.py
      - script: [link](visithealth/blob/main/shell_script/script.py)
